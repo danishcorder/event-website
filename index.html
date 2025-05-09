@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EventX 2025</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f5f5f5;
+      height: 100%;
+    }
+
+    /* Background Video */
+    #bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .overlay {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 1rem;
+      color: white;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+    .hero p {
+      font-size: 1.25rem;
+    }
+
+    nav button {
+      margin: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      background-color: #ffffffaa;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    nav button:hover {
+      background-color: #ff7f50;
+    }
+
+    .section {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .back-button {
+      margin: 1rem auto;
+      display: block;
+      padding: 0.75rem 1.5rem;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* New section for login and signup */
+    .auth-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .auth-form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .auth-form h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .auth-form input {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 1rem 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .auth-form button {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .auth-form button:hover {
+      background-color: #ff7f50;
+    }
+
+    .auth-link {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .auth-link a {
+      color: #ff7f50;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      nav button {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+      }
+
+      .back-button {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .hero p {
+        font-size: 0.875rem;
+      }
+
+      nav button {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section with Background Video -->
+  <header class="hero">
+    <video autoplay muted loop id="bg-video">
+      <source src="https://www.videvo.net/videvo_files/converted/2015_08/preview/Event_People_01_Videvo.mov62305.webm" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+    <div class="container overlay">
+      <h1>EventX 2025</h1>
+      <p>Join us for an unforgettable experience – May 20, 2025</p>
+      <nav>
+        <button onclick="showSection('about')">About</button>
+        <button onclick="showSection('schedule')">Schedule</button>
+        <button onclick="showSection('venue')">Venue</button>
+        <button onclick="showSection('rsvp')">RSVP</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Sign In Form -->
+  <div id="sign-in" class="auth-container" style="display: none;">
+    <div class="auth-form">
+      <h2>Sign In</h2>
+      <form id="sign-in-form">
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Sign In</button>
+      </form>
+      <div class="auth-link">
+        <p>Don't have an account? <a href="javascript:void(0);" onclick="showSignUp()">Sign Up</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sign Up Form -->
+  <div id="sign-up" class="auth-container" style="display: none;">
+    <div class="auth-form">
+      <h2>Sign Up</h2>
+      <form id="sign-up-form">
+        <input type="text" placeholder="Name" required />
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Sign Up</button>
+      </form>
+      <div class="auth-link">
+        <p>Already have an account? <a href="javascript:void(0);" onclick="showSignIn()">Sign In</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.querySelector('header').style.display = 'none';
+      document.getElementById(id).classList.add('active');
+    }
+
+    function goBack() {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.querySelector('header').style.display = 'block';
+    }
+
+    // Show Sign In form
+    function showSignIn() {
+      document.getElementById('sign-in').style.display = 'block';
+      document.getElementById('sign-up').style.display = 'none';
+    }
+
+    // Show Sign Up form
+    function showSignUp() {
+      document.getElementById('sign-in').style.display = 'none';
+      document.getElementById('sign-up').style.display = 'block';
+    }
+
+    // Handle form submissions
+    document.getElementById('sign-in-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Sign In successful!');
+      showHomePage();
+    });
+
+    document.getElementById('sign-up-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Sign Up successful!');
+      showHomePage();
+    });
+
+    function showHomePage() {
+      alert('Welcome to EventX!');
+    }
+  </script>
+
+</body>
+  </html>
